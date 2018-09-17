@@ -1,0 +1,13 @@
+{
+  "name": "firestore",
+  "description": "Google Firestore Connector",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "firebase-admin": "^5.13.1"
+  }
+}
