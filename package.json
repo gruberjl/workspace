@@ -1,0 +1,24 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gruberjl/workspace.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gruberjl/workspace/issues"
+  },
+  "homepage": "https://github.com/gruberjl/workspace#readme",
+  "dependencies": {
+    "chromedriver": "^2.41.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
+}
