@@ -1,0 +1,69 @@
+extends layout.pug
+
+block content
+  h1 Add an Article
+  form(action="/compose" method="post")
+    section
+      label(for="url") URL to Article:
+      input.w500(type="url" name="url")
+    section
+      label(for="title") Title to Article:
+      input.w500(type="text" name="title")
+    section
+      label(for="description") Description to Article:
+      textarea.w500(name="description")
+    section
+      h2 Reddit
+      section
+        input(type="checkbox" name="reddit.technology" value="technology")
+        label(for="reddit.technology") Technology
+      section
+        input(type="checkbox" name="reddit.microsoft" value="microsoft")
+        label(for="reddit.microsoft") microsoft
+      section
+        input(type="checkbox" name="reddit.powershell" value="powershell")
+        label(for="reddit.powershell") powershell
+      section
+        input(type="checkbox" name="reddit.azure" value="azure")
+        label(for="reddit.azure") azure
+      section
+        input(type="checkbox" name="reddit.emailmarketing" value="emailmarketing")
+        label(for="reddit.emailmarketing") emailmarketing
+      section
+        input(type="checkbox" name="reddit.exchangeserver" value="exchangeserver")
+        label(for="reddit.exchangeserver") exchangeserver
+      section
+        input(type="checkbox" name="reddit.hipaa" value="hipaa")
+        label(for="reddit.hipaa") hipaa
+      section
+        input(type="checkbox" name="reddit.MicrosoftFlow" value="MicrosoftFlow")
+        label(for="reddit.MicrosoftFlow") MicrosoftFlow
+      section
+        input(type="checkbox" name="reddit.o365" value="o365")
+        label(for="reddit.o365") o365
+      section
+        input(type="checkbox" name="reddit.Office365" value="Office365")
+        label(for="reddit.Office365") Office365
+      section
+        input(type="checkbox" name="reddit.Office_365_o365info" value="Office_365_o365info")
+        label(for="reddit.Office_365_o365info") Office_365_o365info
+      section
+        input(type="checkbox" name="reddit.onedrive" value="onedrive")
+        label(for="reddit.onedrive") onedrive
+      section
+        input(type="checkbox" name="reddit.OneNote" value="OneNote")
+        label(for="reddit.OneNote") OneNote
+      section
+        input(type="checkbox" name="reddit.Outlook" value="Outlook")
+        label(for="reddit.Outlook") Outlook
+      section
+        input(type="checkbox" name="reddit.productivity" value="productivity")
+        label(for="reddit.productivity") productivity
+      section
+        input(type="checkbox" name="reddit.projectmanagement" value="projectmanagement")
+        label(for="reddit.projectmanagement") projectmanagement
+      section
+        input(type="checkbox" name="reddit.sharepoint" value="sharepoint")
+        label(for="reddit.sharepoint") sharepoint
+    section
+      button(type="submit") Submit

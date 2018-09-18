@@ -1,0 +1,11 @@
+html
+  head
+    title Workspace
+    link(rel="stylesheet" href="/assets/styles.css")
+  body
+    if flash
+      h3=flash.text
+    .app
+      include sidebar.pug
+      main
+        block content
