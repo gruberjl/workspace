@@ -15,7 +15,7 @@ const createPassportReddit = async (app, passport) => {
       const data = doc.data()
       data.reddit.refreshToken = refreshToken
       db.collection('people').doc(req.query.state).set(data).then(() => {
-        done(null, {flash:{text:'success!'}, refreshToken})
+        done(null, {flash:{text:'success!'}})
       })
     })
   }))
@@ -24,6 +24,7 @@ const createPassportReddit = async (app, passport) => {
     passport.authenticate('reddit', {
       state: req.query.username,
       duration: 'permanent',
+      scope: 'account,creddits,edit,flair,history,identity,livemanage,modconfig,modcontributors,modflair,modlog,modmail,modothers,modposts,modself,modwiki,mysubreddits,privatemessages,read,report,save,structuredstyles,submit,subscribe,vote,wikiedit,wikiread'
     })(req, res, next)
   })
 
