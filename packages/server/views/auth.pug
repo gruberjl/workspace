@@ -1,0 +1,12 @@
+extends layout.pug
+
+block content
+    h1 Authenticate
+    
+    h2 Reddit
+    form(action="/auth/reddit" method="get")
+      section
+        label(for="RedditEmail") Email:
+        input.w500(type="email" name="RedditEmail")
+      section
+        button(type="submit") Submit
