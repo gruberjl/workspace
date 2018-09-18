@@ -11,14 +11,18 @@ const createPassportReddit = async (app, passport) => {
     passReqToCallback: true
   },
   (req, accessToken, refreshToken, profile, done) => {
-    console.log(refreshToken)
-    console.log(req.query.state)
-    done(null, {flash:{text:'success!'}, refreshToken})
+    db.collection('people').doc(req.query.state).get().then(doc => {
+      const data = doc.data()
+      data.reddit.refreshToken = refreshToken
+      db.collection('people').doc(req.query.state).set(data).then(() => {
+        done(null, {flash:{text:'success!'}, refreshToken})
+      })
+    })
   }))
 
   app.get('/auth/reddit', function(req, res, next){
     passport.authenticate('reddit', {
-      state: req.query.RedditEmail,
+      state: req.query.username,
       duration: 'permanent',
     })(req, res, next)
   })
