@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const {createPassport} = require('./passport')
 const {postCompose} = require('./post-compose')
+const {renderIndex} = require('./render-index')
 
 const createServer = async () => {
   const app = express()
@@ -15,9 +16,9 @@ const createServer = async () => {
   app.set('view engine', 'pug')
   app.set('views', join(__dirname, '..', 'views'))
   app.use('/assets', express.static(join(__dirname, '..', 'assets')))
-  app.get('/', (req, res) => {res.render('index', {flash: res.flash})})
+  app.get('/', renderIndex)
   app.get('/compose', (req, res) => {res.render('compose')})
-  app.post('/compose', postCompose, (req, res) => {res.render('index', {flash: res.flash})})
+  app.post('/compose', postCompose, renderIndex)
   app.get('/auth', (req, res) => {res.render('auth')})
 
   return app

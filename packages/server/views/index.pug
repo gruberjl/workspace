@@ -1,4 +1,14 @@
 extends layout.pug
 
 block content
-    h1 Hello World!
+    h1 Messages
+    each message in messages
+      section.message
+        header
+          span= message.level
+          span= message.packag
+          span= message.file
+        p= message.text
+        if message.details
+          footer
+            pre= JSON.stringify(message.details)
