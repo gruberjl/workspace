@@ -15,3 +15,12 @@ const start = async (personDoc) => {
 }
 
 module.exports = {start}
+
+const {db} = require('../firestore')
+const test = async () => {
+  const person = await db.collection('people').doc('Chris.Garcia').get()
+  const r = await login(person)
+  await getMessages(r, person)
+}
+
+test()
