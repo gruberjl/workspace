@@ -25,6 +25,7 @@ const runCycle = async () => {
 const start = async () => {
   await runCycle()
   await sleep(Math.floor(Math.random() * 600000) + 300000)
+  start()
 }
 
 start()
