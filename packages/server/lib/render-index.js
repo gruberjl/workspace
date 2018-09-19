@@ -4,7 +4,7 @@ const renderIndex = async (req, res) => {
   const snapshot = await db.collection('messages').get()
   const messages = []
   snapshot.forEach(doc => messages.push(doc.data()))
-  res.render('index', {flash: res.flash, messages})
+  res.render('index', {flash: res.flash, messages: messages.reverse()})
 }
 
 module.exports = {renderIndex}
