@@ -1,4 +1,6 @@
+const sleep = require('sleep-promise')
 const {db} = require('../firestore')
+const reddit = require('../reddit')
 
 const getRandomPerson = async () => {
   const snapshot = await db.collection('people').get()
@@ -15,11 +17,14 @@ const getRandomPerson = async () => {
 
 const runCycle = async () => {
   const person = await getRandomPerson()
-  console.log(person.data())
+  console.log('')
+  console.log(`Running cycle for ${person.id}`)
+  await reddit.start(person)
 }
 
 const start = async () => {
-  runCycle()
+  await runCycle()
+  await sleep(Math.floor(Math.random() * 600000) + 300000)
 }
 
 start()
