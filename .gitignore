@@ -1,4 +1,6 @@
 secret.json
+*.cer
+*.pfx
 
 # Logs
 logs
