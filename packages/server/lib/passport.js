@@ -1,5 +1,6 @@
 const passport = require('passport')
 const {createPassportReddit} = require('./passport-reddit')
+const {createPassportPinterest} = require('./passport-pinterest')
 
 const createPassport = async (app) => {
   app.use(passport.initialize())
@@ -14,6 +15,7 @@ const createPassport = async (app) => {
   })
 
   await createPassportReddit(app, passport)
+  await createPassportPinterest(app, passport)
 }
 
 module.exports = {createPassport}
