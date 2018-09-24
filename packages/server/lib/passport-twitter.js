@@ -11,22 +11,16 @@ const createPassportTwitter = async (app, passport) => {
     passReqToCallback: true
   },
   async (req, accessToken, refreshToken, profile, done) => {
-    console.log(accessToken)
-    console.log(refreshToken)
-    console.log(profile)
-    done()
-    // const snapshot = await db.collection('people')
-    //   .where('pinterest.username', '==', profile.username)
-    //   .limit(1)
-    //   .get()
-    //
-    // snapshot.forEach(doc => {
-    //   const data = doc.data()
-    //   data.pinterest.accessToken = accessToken
-    //   db.collection('people').doc(doc.id).set(data).then(() => {
-    //     done(null, {flash:{text:'success!'}})
-    //   })
-    // })
+    const snapshot = await db.collection('people').where('twitter.username', '==', profile.username).limit(1).get()
+
+    snapshot.forEach(doc => {
+      const data = doc.data()
+      data.twitter.accessToken = accessToken
+      data.twitter.refreshToken = refreshToken
+      db.collection('people').doc(doc.id).set(data).then(() => {
+        done(null, {flash:{text:'success!'}})
+      })
+    })
   }))
 
   app.get('/auth/twitter', function(req, res, next){
