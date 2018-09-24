@@ -1,8 +1,9 @@
 const sleep = require('sleep-promise')
 const {db} = require('../firestore')
 const reddit = require('../reddit')
-const twiends = require('../twitter/twiends')
+const twiends = require('../twittr/twiends')
 const flipboard = require('../flipboard')
+const twitter = require('../twitter')
 
 const getRandomPerson = async () => {
   const snapshot = await db.collection('people').get()
@@ -24,6 +25,7 @@ const runCycle = async () => {
   await reddit.start(person)
   await twiends.start()
   await flipboard.start(person)
+  await twitter.start(person)
 }
 
 const start = async () => {
