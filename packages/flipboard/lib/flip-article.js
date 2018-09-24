@@ -35,7 +35,7 @@ const flipArticle = async (driver, personDoc, articleDoc) => {
         const flipEl = await driver.findElement(By.className('share-flip__button-primary'))
         await driver.executeScript('arguments[0].scrollIntoView(false);', flipEl)
         await flipEl.click()
-        await driver.sleep(2000)
+        await driver.sleep(3000)
         await saveFlip(personDoc, articleDoc)
       }
 

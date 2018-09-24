@@ -8,36 +8,34 @@ const hasFlipped = (personDoc, articleDoc) => {
   return Boolean(article.flipped[personDoc.id])
 }
 
-const start = async (personDoc, articleDoc) => {
-  // const personDoc = await db.collection('people').doc('Adam.Tucker').get()
-  // const articleDoc = await db.collection('articles').doc('OTlThhZRvboFLLVJN0t6').get()
+const getArticles = async (personDoc) => {
+  const snapshot = await db.collection('articles').get()
+  const articles = []
 
-  if (personDoc.data().flipboard.isLoggedIn && !hasFlipped(personDoc, articleDoc)) {
-    const driver = await Driver.build()
-    await driver.get('https://google.com')
-
-    const cookies = personDoc.data().cookies
-    for (let i = 0; i < cookies.length; i++) {
-      await driver.manage().addCookie(cookies[i])
+  snapshot.forEach(articleDoc => {
+    if (!hasFlipped(personDoc, articleDoc)) {
+      articles.push(articleDoc)
     }
-
-    await driver.get('https://flipboard.com')
-    await flipArticle(driver, personDoc, articleDoc)
-    await driver.quit()
-  }
-}
-
-const all = async () => {
-  const articleDoc = await db.collection('articles').doc('OTlThhZRvboFLLVJN0t6').get()
-  const peopleDocs = await db.collection('people').get()
-  const people = []
-  peopleDocs.forEach(person => {
-    people.push(person)
   })
 
-  for (let i = 0; i < people.length; i++) {
-    await start(people[i], articleDoc)
-  }
+  return articles
 }
 
-all()
+const start = async (personDoc) => {
+  if (!personDoc.data().flipboard.isLoggedIn) return
+  const articles = await getArticles(personDoc)
+  if (articles.length == 0) return
+
+  const driver = await Driver.build()
+  await Driver.getCookies(driver, personDoc)
+  await driver.get('https://flipboard.com')
+
+  for (let i = 0; i < articles.length; i++) {
+    await flipArticle(driver, personDoc, articles[i])
+  }
+
+  await Driver.saveCookies(driver, personDoc)
+  await driver.quit()
+}
+
+module.exports = {start}

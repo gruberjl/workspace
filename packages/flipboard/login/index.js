@@ -24,16 +24,11 @@ const login = async (personDoc, password) => {
   const passwordTag = await driver.findElement(By.css('input[name="password"]'))
   await usernameTag.sendKeys(personDoc.data().flipboard.username)
   await passwordTag.sendKeys(password)
-
   await driver.findElement(By.className('auth__submit-button')).click()
 
   await driver.wait(until.urlIs('https://flipboard.com/'))
-  const cookies = await driver.manage().getCookies()
 
-  const person = personDoc.data()
-  person.flipboard.isLoggedIn = true
-  person.cookies = cookies
-  await db.collection('people').doc(personDoc.id).set(person)
+  await Driver.saveCookies(driver, personDoc, {isLoggedIn:true})
 }
 
 const start = async () => {
