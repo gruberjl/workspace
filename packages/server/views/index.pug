@@ -6,6 +6,7 @@ block content
       section.message
         header
           span= message.level
+          span= (new Date(message.created)).toLocaleString('en')
           span= message.packag
           span= message.file
         p= message.text
