@@ -4,6 +4,8 @@ const {browse} = require('./lib/browse')
 const gruberjl = require('./gruberjl')
 
 const start = async (personDoc) => {
+  await gruberjl.start()
+  
   const person = personDoc.data()
 
   if (person.twitter.isDisabled) return
@@ -19,7 +21,6 @@ const start = async (personDoc) => {
   })
 
   await browse(personDoc, client)
-  await gruberjl.start()
 }
 
 module.exports = {start}
