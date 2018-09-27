@@ -1,6 +1,7 @@
 const Twitter = require('twitter')
 const {db} = require('../firestore')
 const {browse} = require('./lib/browse')
+const gruberjl = require('./gruberjl')
 
 const start = async (personDoc) => {
   const person = personDoc.data()
@@ -18,6 +19,7 @@ const start = async (personDoc) => {
   })
 
   await browse(personDoc, client)
+  await gruberjl.start()
 }
 
 module.exports = {start}

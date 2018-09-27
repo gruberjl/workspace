@@ -43,6 +43,4 @@ const start = async () => {
   await interact(client)
 }
 
-start()
-
 module.exports = {start}
