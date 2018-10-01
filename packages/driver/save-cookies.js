@@ -1,13 +1,15 @@
 const {db} = require('../firestore')
 
-const saveCookies = async (driver, personDoc, data={}) => {
+const saveCookies = async (driver, personDoc, key) => {
+  if (!key || typeof key != 'string') throw 'driver/saveCookies requires key'
   const cookies = await driver.manage().getCookies()
 
-  const person = Object.assign({}, personDoc.data(), data)
-  if (!person.cookies) person.cookies = []
+  const person = personDoc.data()
+
+  if (!person[key].cookies) person[key].cookies = []
 
   cookies.forEach(cookie => {
-    person.cookies.push(cookie)
+    person[key].cookies.push(cookie)
   })
 
   await db.collection('people').doc(personDoc.id).set(person)
