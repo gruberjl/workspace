@@ -1,11 +1,5 @@
-const {join} = require('path')
-const admin = require('firebase-admin')
+const admin = require('./lib/admin')
+const db = require('./lib/db')
+const save = require('./save')
 
-admin.initializeApp({
-  credential: admin.credential.cert(join(__dirname, 'secret.json'))
-})
-
-const db = admin.firestore()
-db.settings({timestampsInSnapshots: true})
-
-module.exports = {db, admin}
+module.exports = {db, admin, save}
