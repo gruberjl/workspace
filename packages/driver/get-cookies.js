@@ -12,10 +12,11 @@ const getCookies = async (driver, personDoc) => {
   const cookies = personDoc.data().cookies
   if (cookies) await addCookies(driver, cookies)
 
-  providers.forEach(providerKey => {
+  for (let i = 0; i < providers.length; i++) {
+    const providerKey = providers[i]
     const provider = personDoc.data()[providerKey]
-    if (provider.cookies) addCookies(driver, provider.cookies)
-  })
+    if (provider.cookies) await addCookies(driver, provider.cookies)
+  }
 }
 
 module.exports = {getCookies}
