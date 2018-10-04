@@ -3,6 +3,7 @@ const {db} = require('../firestore')
 const reddit = require('../reddit')
 const flipboard = require('../flipboard')
 const twitter = require('../twitter')
+const facebook = require('../facebook')
 
 const getRandomPerson = async () => {
   const snapshot = await db.collection('people').get()
@@ -24,6 +25,7 @@ const runCycle = async () => {
   await reddit.start(person)
   await flipboard.start(person)
   await twitter.start(person)
+  await facebook.start()
 }
 
 const start = async () => {
