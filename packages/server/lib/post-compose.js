@@ -26,11 +26,24 @@ const composeFacebook = (data) => {
   })
 }
 
+const composeLinkedIn = (data) => {
+  Object.keys(data).filter(k => k.startsWith('linkedin.')).forEach(key => {
+    const value = data[key]
+    data.channels.push({
+      provider: 'linkedin',
+      posted: false,
+      url: value
+    })
+    delete data[key]
+  })
+}
+
 const postCompose = async (req, res, next) => {
   const created = new Date().getTime()
   const data = Object.assign({created, channels:[]}, req.body)
   composeReddit(data)
   composeFacebook(data)
+  composeLinkedIn(data)
 
   db.collection('articles').add(data).then(() => {
     res.flash = {text:'saved!'}
