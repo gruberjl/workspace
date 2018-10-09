@@ -4,6 +4,7 @@ const reddit = require('../reddit')
 const flipboard = require('../flipboard')
 const twitter = require('../twitter')
 const facebook = require('../facebook')
+const linkedin = require('../linkedin')
 
 const getRandomPerson = async () => {
   const snapshot = await db.collection('people').get()
@@ -26,6 +27,7 @@ const runCycle = async () => {
   await flipboard.start(person)
   await twitter.start(person)
   await facebook.start()
+  await linkedin.start()
 }
 
 const start = async () => {
