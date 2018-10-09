@@ -28,6 +28,7 @@ const runCycle = async () => {
   await twitter.start(person)
   await facebook.start()
   await linkedin.start()
+  console.log(`Cycle complete for ${person.id}`)
 }
 
 const start = async () => {
