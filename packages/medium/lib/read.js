@@ -1,7 +1,7 @@
 const {By, Key} = require('../../driver').webdriver
 
 const isBottomOfPage = async (driver) => {
-  return await driver.executeScript('if (document.body.scrollHeight == document.body.scrollTop + window.innerHeight) { return true; } else { return false; }')
+  return await driver.executeScript('if (document.body.scrollHeight == window.innerHeight + window.scrollY) { return true; } else { return false; }')
 }
 
 const randomNum = (low, high) => {
@@ -42,23 +42,25 @@ const clap = async (driver, clapMin=1, clapMax=5) => {
       console.log('')
     }
   }
+
+  await driver.sleep(1000)
 }
 
 const readNextArticle = async (driver) => {
   await driver.findElement(By.css('.js-postFooterPlacements .row .col:nth-child(3) a')).click()
   await driver.sleep(1000)
   await readUntilEnd(driver, 1, 2)
-  await clap(driver, 1, 5)
+  await clap(driver)
 }
 
 const read = async (driver, url) => {
   await driver.get(url)
   await driver.sleep(1000)
-  await readUntilEnd(driver, 10, 30)
-  await clap(driver, 10, 30)
+  await readUntilEnd(driver)
+  await clap(driver, 40, 50)
 
-  readNextArticle(driver)
-  readNextArticle(driver)
+  await readNextArticle(driver)
+  await readNextArticle(driver)
 }
 
 module.exports = {read}
