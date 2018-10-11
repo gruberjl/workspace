@@ -1,7 +1,7 @@
 const sleep = require('sleep-promise')
 const {db} = require('../firestore')
 const reddit = require('../reddit')
-// const flipboard = require('../flipboard')
+const flipboard = require('../flipboard')
 const twitter = require('../twitter')
 const facebook = require('../facebook')
 const linkedin = require('../linkedin')
@@ -25,11 +25,11 @@ const runCycle = async () => {
   console.log('')
   console.log(`Running cycle for ${person.id}`)
   await reddit.start(person)
-  // await flipboard.start(person)
+  await flipboard.start(person)
   await twitter.start(person)
   await facebook.start()
   await linkedin.start()
-  await medium.start()
+  await medium.start(person)
   console.log(`Cycle complete for ${person.id}`)
 }
 
