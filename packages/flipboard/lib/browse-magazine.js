@@ -21,4 +21,4 @@ const browseMagazine = async (driver, personDoc) => {
   }
 }
 
-modul.exports = {browseMagazine}
+module.exports = {browseMagazine}

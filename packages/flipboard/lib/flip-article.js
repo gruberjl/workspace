@@ -14,6 +14,10 @@ const flipArticle = async (driver, personDoc, articleDoc) => {
   await driver.get(magazineUrl)
   await driver.sleep(2500)
 
+  try {
+    await driver.findElement(By.css('.buton.not-now')).click()
+  } catch(e) {}
+
   const statEls = await driver.findElements(By.className('stat-label'))
   let found = false
 

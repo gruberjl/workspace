@@ -1,6 +1,7 @@
 const {db} = require('../firestore')
 const Driver = require('../driver')
 const {flipArticle} = require('./lib/flip-article')
+const {browse} = require('./lib/browse')
 
 const hasFlipped = (personDoc, articleDoc) => {
   const article = articleDoc.data()
@@ -23,6 +24,7 @@ const getArticles = async (personDoc) => {
 
 const start = async (personDoc) => {
   if (!personDoc.data().flipboard.isLoggedIn) return
+  await browse(personDoc)
   const articles = await getArticles(personDoc)
   if (articles.length == 0) return
 
@@ -34,7 +36,7 @@ const start = async (personDoc) => {
     await flipArticle(driver, personDoc, articles[i])
   }
 
-  await Driver.saveCookies(driver, personDoc)
+  await Driver.saveCookies(driver, personDoc, 'flipboard')
   await driver.quit()
 }
 
