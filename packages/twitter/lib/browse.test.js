@@ -13,17 +13,9 @@ const start = async () => {
     access_token_secret: personDoc.data().twitter.refreshToken
   })
 
-  const tweets = [].concat(
-    await client.get('statuses/user_timeline', {screen_name:'gruberjl', count:3}),
-    await client.get('statuses/user_timeline', {screen_name:'gruberjl', count:3})
-  )
-  console.log(filterUnique(tweets).length)
+  await client.get('statuses/user_timeline', {screen_name:'gruberjl', count:3}),
 }
 
-const filterUnique = tweets => tweets.reduce((acc, tweet) => {
-  const exists = acc.find(t => t.id_str == tweet.id_str)
-  if (!exists) acc.push(tweet)
-  return acc
-}, [])
+
 
 start()
