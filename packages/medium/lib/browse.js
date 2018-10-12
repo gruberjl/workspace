@@ -13,7 +13,7 @@ const browse = async (personDoc) => {
   await body.sendKeys(Key.PAGE_DOWN)
   await body.sendKeys(Key.PAGE_DOWN)
   await body.sendKeys(Key.PAGE_DOWN)
-  await driver.sleep(3000)
+  await driver.sleep(5000)
 
   const posts = await driver.findElements(By.className('extremePostPreview'))
   let url
@@ -21,20 +21,14 @@ const browse = async (personDoc) => {
     if (!url) {
       const premium = await posts[i].findElement(By.className('svgIcon--star')).catch(() => undefined)
       if (!premium) {
-        url = await posts[i].findElement(By.css('.ds-link')).getAttribute('href')
+        url = await posts[i].findElement(By.css('.ds-link.ds-link--stylePointer')).getAttribute('href').catch(() => undefined)
       }
     }
   }
 
-  await read(driver, url)
+  if (url)
+    await read(driver, url)
   await driver.quit()
 }
-
-const {db} = require('../../firestore')
-const start = async () => {
-  const p = await db.collection('people').doc('Adam.Tucker').get()
-  await browse(p)
-}
-start()
 
 module.exports = {browse}

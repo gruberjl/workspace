@@ -1,3 +1,4 @@
+require('./catch-failed-promise')
 const sleep = require('sleep-promise')
 const {db} = require('../firestore')
 const reddit = require('../reddit')

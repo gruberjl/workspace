@@ -18,7 +18,7 @@ const createServer = async () => {
   app.use('/assets', express.static(join(__dirname, '..', 'assets')))
   app.get('/', renderIndex)
   app.get('/compose', (req, res) => {res.render('compose')})
-  app.post('/compose', postCompose, renderIndex)
+  app.post('/compose', postCompose, (req, res) => {res.redirect('/')})
   app.get('/auth', (req, res) => {res.render('auth')})
 
   return app

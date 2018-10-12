@@ -6,7 +6,13 @@ const writeMessage = async (level, packag, text, file, details) => {
   if (data.text && typeof data.text != 'string')
     data.text = data.text.toString()
 
-  await db.collection('messages').add(data)
+  try {
+    await db.collection('messages').add(data)
+  } catch (e) {
+    console.log('could not write data to firestore message')
+    console.log(data)
+  }
+
 }
 
 module.exports = {writeMessage}

@@ -26,15 +26,21 @@ const timeline = async (personDoc, client) => {
 }
 
 const leaders = async (personDoc, client) => {
-  return client.get('statuses/user_timeline', {screen_name:'gruberjl', count:1})
+  return client.get('statuses/user_timeline', {screen_name:'gruberjl', count:20})
     .catch(err =>
       writeMessage('error', 'twitter', err[0].message, 'browse', {user:personDoc.id}).then(() => [])
     )
 }
 
+const filterUnique = tweets => tweets.reduce((acc, tweet) => {
+  const exists = acc.find(t => t.id_str == tweet.id_str)
+  if (!exists) acc.push(tweet)
+  return acc
+}, [])
+
 const engage = async (personDoc, client, tweets) => {
   await sleep(60000)
-  const t = tweets.filter(tweet => !tweet.favorited && !tweet.retweeted)
+  const t = filterUnique(tweets.filter(tweet => !tweet.favorited && !tweet.retweeted))
 
   for (let i = 0; i < t.length; i++) {
     const engageType = Math.floor(Math.random() * 2)
