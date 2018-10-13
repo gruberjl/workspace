@@ -13,7 +13,7 @@ const start = async () => {
     access_token_secret: personDoc.data().twitter.refreshToken
   })
 
-  await client.get('statuses/user_timeline', {screen_name:'gruberjl', count:3}),
+  await client.get('statuses/user_timeline', {screen_name:'gruberjl', count:3})
 }
 
 

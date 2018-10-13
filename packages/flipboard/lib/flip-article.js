@@ -1,4 +1,4 @@
-const {By} = require('../../driver').webdriver
+const {By, read, closeCurrentTab} = require('../../driver')
 const {db} = require('../../firestore')
 
 const saveFlip = async (personDoc, articleDoc) => {
@@ -6,6 +6,16 @@ const saveFlip = async (personDoc, articleDoc) => {
   if (!data.flipped) data.flipped = {}
   data.flipped[personDoc.id] = true
   await db.collection('articles').doc(articleDoc.id).set(data)
+}
+
+const readArticle = async (driver, linkEl) => {
+  await linkEl.click()
+  const handles = await driver.getAllWindowHandles()
+  await driver.switchTo().window(handles[1])
+  await driver.sleep(3000)
+  await read(driver)
+  await driver.close()
+  await driver.switchTo().window(handles[0])
 }
 
 const flipArticle = async (driver, personDoc, articleDoc) => {
@@ -30,6 +40,9 @@ const flipArticle = async (driver, personDoc, articleDoc) => {
       const currentUrl = await linkEl.getAttribute('href')
       if (currentUrl.toLowerCase() == url.toLowerCase()) {
         found = true
+
+        await readArticle(driver, linkEl)
+
         const actionEls = await driver.findElements(By.className('detail-social-action'))
         await driver.executeScript('arguments[0].scrollIntoView(false);', actionEls[1])
         await actionEls[1].click()
